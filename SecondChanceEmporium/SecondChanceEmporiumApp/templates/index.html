@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5 mb-5">
+    <img src="data/files/Banner-New-Macedonian-scaled.png">
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col me-3 my-card beige-card">
+            <h3 class="h3 mb-5">ОТКРИЈ ГО СВОЕТО
+                НАРЕДНО БОГАТСТВО</h3>
+
+            <div class="w-100 row mt-5">
+                <div class="col invisible">
+                    a
+                </div>
+                <div class="col">
+                    <a href="#" class="btn btn-large btn-secondary text-light fw-bold pt-4 pb-4 mx-auto">СИТЕ
+                        ПРОИЗВОДИ</a>
+
+                </div>
+                <div class="col invisible">
+                    a
+                </div>
+            </div>
+        </div>
+        <div class="col ms-3 my-card reddish-card">
+            <h3 class="h3 text-upper">имаш непотребни работи?<br>
+                ...<br>
+                постави оглас и заработи од нив</h3>
+
+                        <div class="w-100 row mt-5">
+                <div class="col invisible">
+                    a
+                </div>
+                <div class="col">
+                    <a href="#" class="btn btn-large btn-secondary text-light fw-bold pt-4 pb-4 mx-auto">ЗАПОЧНИ СО ПРОДАЖБА</a>
+
+                </div>
+                <div class="col invisible">
+                    a
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid mt-5 mb-5">
+    <h1 class="h1 text-upper text-center mb-5">НАЈНОВИ ОГЛАСЕНИ ПРОИЗВОДИ</h1>
+
+
+    <div>
+        {% for product in newest_products %}
+        <div class="card rounded col-3" style="width: 18rem;">
+            <img src="{{product.cover_image.url}}" class="card-img-top" alt="Cover image for the product">
+            <div class="card-body">
+                <h5 class="card-title">{{product.category.category}}</h5>
+                <h6 class="card-subtitle">{{product.title}}</h6>
+                <p class="card-price">{{product.price}}$</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+
+    <div class="row my-card beige-card mt-5 mb-5">
+        <p>
+            Имаме се за секого, без разлика дали сте колекционер кој го бара своето наредно парче или пак сакате да дадете втора шанса на користени предмети и притоа да имате можност да заработите дополнителен приход од предмети кои веќе не ви се потребни.
+            <br>
+            <a href="#">Регистрирајте се</a> и започнете со користење на платформата уште веднаш.
+        </p>
+    </div>
+</div>
+
+{% endblock %}

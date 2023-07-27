@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2nd Chance Emporium - Продавница за производи од втора рака</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <link href="data/site.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+          rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light my-beige-color-bg flex-column">
+        <div class="container-fluid justify-content-between ps-5 pe-5 mt-2 mb-3">
+            <form class="d-flex me-0 pe-0 w-25">
+                <input class="form-control me-2" type="search" placeholder="Пребарај" aria-label="Search">
+                <button class="btn btn-outline-secondary" type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                </button>
+            </form>
+
+            <img class="me-5" src="data/files/banner-logo.png" width="200" style="margin-left: -8rem;">
+
+            <div class="d-flex justify-content-between links-top-right-navbar" style="width: 8%">
+                <a href="#" class="text-dark text-decoration-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor"
+                         class="bi bi-person" viewBox="0 0 16 16">
+                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
+                    </svg>
+                </a>
+
+                <a class="text-dark text-decoration-none fs-2" style="margin-top: -0.2em">|</a>
+
+                <a href="#" class="text-dark text-decoration-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor"
+                         class="bi bi-cart2" viewBox="0 0 16 16">
+                        <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+
+        <hr style="width:90%; border: 1px solid black;box-shadow: 0px 0px 4px 0px black;">
+
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-center w-100">
+                    <li class="nav-item pe-4">
+                        <a style="font-family: 'Open Sans', sans-serif; font-weight: 800;" class="nav-link active"
+                           aria-current="page" href="#">ПОЧЕТНА</a>
+                    </li>
+                    <li class="nav-item pe-4">
+                        <a style="font-family: 'Open Sans', sans-serif; font-weight: 800;" class="nav-link"
+                           aria-current="page" href="#">КОЛЕКЦИОНЕРСКИ ПАРЧИЊА</a>
+                    </li>
+                    <li class="nav-item pe-4">
+                        <a style="font-family: 'Open Sans', sans-serif; font-weight: 800;" class="nav-link"
+                           aria-current="page" href="#">НАЈНОВИ</a>
+                    </li>
+                    <li class="nav-item dropdown pe-4">
+                        <a style="font-family: 'Open Sans', sans-serif; font-weight: 800;"
+                           class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            КАТЕГОРИИ
+                        </a>
+                        <ul class="dropdown-menu" style="background-color: #AF8B92;" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item text-light fw-bolder" href="#">ОБЛЕКА</a></li>
+                            <li><a class="dropdown-item text-light fw-bolder" href="#">КОЛЕКЦИИ</a></li>
+                            <li><a class="dropdown-item text-light fw-bolder" href="#">ОБУВКИ</a></li>
+                            <li><a class="dropdown-item text-light fw-bolder" href="#">МЕБЕЛ</a></li>
+                            <li><a class="dropdown-item text-light fw-bolder" href="#">РАЗНО</a></li>
+                        </ul>
+                    </li>
+
+                    <a class="text-dark text-decoration-none fs-2 pe-4" style="margin-top: -0.2em">|</a>
+
+                    <li class="nav-item pe-4">
+                        <a style="font-family: 'Open Sans', sans-serif; font-weight: 800; color: #AF8B92 !important;"
+                           class="nav-link" aria-current="page" href="#">РАСПРОДАЖБА</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+{% block content %}
+{% endblock %}
+
+
+<div class="container-fluid">
+  <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 border-top my-bluish-color-bg">
+    <div class="col mb-3">
+      <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
+        <img src="data/files/banner-logo-white.png" width="155">
+      </a>
+    </div>
+
+
+    <div class="col-4 mb-3">
+      <h5 class="text-light">123 ул. Никола Тесла #42<br>
+Карпош, Скопје<br>
+1002</h5>
+      <ul class="nav flex-column mt-5">
+        <li class="nav-item mb-4"><a href="#" class="nav-link p-0 text-light text-decoration-underline fw-light" style="color: white !important;">+38970 123 456</a></li>
+        <li class="nav-item mb-4"><a href="#" class="nav-link p-0 text-light text-decoration-underline fw-light" style="color: white !important;">support@2nd-chance-emporium.mk</a></li>
+      </ul>
+    </div>
+
+    <div class="col mb-3">
+      <ul class="nav flex-column">
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 fw-light" style="color: white !important;">Почетна</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 fw-light" style="color: white !important;">Достапни производи</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 fw-light" style="color: white !important;">За нас</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 fw-light" style="color: white !important;">Контакт</a></li>
+      </ul>
+
+
+    </div>
+
+    <div class="col mb-3">
+      <ul class="nav flex-column">
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 fw-light" style="color: white !important;">Facebook</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 fw-light" style="color: white !important;">Twitter</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 fw-light" style="color: white !important;">Instagram</a></li>
+      </ul>
+    </div>
+
+<div class="d-flex flex-sm-row justify-content-between py-4 my-4 border-top w-75 mx-auto">
+      <p class="text-light fw-light">© 2023 2nd Chance Emporium. All rights reserved.</p>
+    </div>
+
+  </footer>
+</div>
+
+</body>
+</html>
