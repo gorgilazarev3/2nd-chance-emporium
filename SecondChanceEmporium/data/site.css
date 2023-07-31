@@ -1,3 +1,13 @@
+.page-header-div h2.h2 {
+    font-family: 'Playfair Display' !important;
+
+}
+
+.page-header-div .page-header-subtitle {
+    font-family: 'Playfair Display', serif !important;
+    color: #6C757D;
+}
+
 a.btn {
     font-family: 'Open Sans', sans-serif;
 }
@@ -89,6 +99,9 @@ a.dropdown-item:hover {
 .card-img-top {
     border-radius: 1em !important;
     padding: 0.4em;
+    width: 100% !important;
+    height: 10vw !important;
+    max-height: 13rem !important;
 }
 
 .card-title {
@@ -106,4 +119,17 @@ a.dropdown-item:hover {
 
 .my-bluish-color-bg {
     background-color: #8B92AF !important;
+}
+
+.btn-bluish {
+    color: whitesmoke;
+    background-color: #8B92AF !important;
+}
+
+form {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.purple-link {
+    color: #AF8B92;
 }

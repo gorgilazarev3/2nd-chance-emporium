@@ -22,5 +22,8 @@ from SecondChanceEmporiumApp.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',index,name="index")
+    path('',index,name="index"),
+    path('products/all',allproducts,name="allproducts"),
+    path('login/',login,name="login"),
+    path('register/',register,name="register"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

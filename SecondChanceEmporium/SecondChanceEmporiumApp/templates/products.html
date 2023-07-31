@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="container mt-5 mb-5">
+    {% if banner == 'all' %}
+    <img src="../data/files/Banner-PRODUCTS.png">
+    {% endif %}
+</div>
+
+<div class="container mt-5 mb-5">
+    <div class="row row-cols-4 g-5 mt-5">
+        {% for product in products %}
+        <div class="card rounded col m-4" style="width: 18rem;">
+            <img src="{{product.cover_image.url}}" class="card-img-top" alt="Cover image for the product"
+                 style="max-height: 13rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{product.category.category}}</h5>
+                <h6 class="card-subtitle">{{product.title}}</h6>
+            </div>
+            <div class="card-footer" style="background-color: transparent; border-top: none;">
+                <p class="card-price">{{product.price}}$</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}

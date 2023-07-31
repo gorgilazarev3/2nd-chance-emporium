@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="page-header-div">
+        <h2 class="display-4 text-upper text-center mb-5 fw-normal mt-5"
+            style="text-transform: none; font-family: 'Playfair Display', serif;">Креирај акаунт</h2>
+        <h4 class="page-header-subtitle text-center">и започни со истражувањето</h4>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data" class="mt-5">
+        {% csrf_token %}
+                <div class="mb-3 w-25 mx-auto">
+            <label for="email-input" class="form-label">Име и презиме <span class="text-danger">*</span></label>
+            <input required type="text" class="form-control" id="name-input"
+                   placeholder="Внесете ги вашето име и презиме" name="name_input">
+        </div>
+
+        <div class="mb-3 w-25 mx-auto">
+            <label for="email-input" class="form-label">Емаил адреса <span class="text-danger">*</span></label>
+            <input required type="email" class="form-control" id="email-input"
+                   placeholder="Внесете ја вашата емаил адреса" name="email_input">
+        </div>
+
+        <div class="mb-3 w-25 mx-auto">
+            <label for="password-input" class="form-label">Лозинка <span class="text-danger">*</span></label>
+            <input required type="password" class="form-control" id="password-input"
+                   placeholder="Внесете ја вашата лозинка" name="password_input">
+        </div>
+
+        <div class="w-100 d-flex">
+            <button class="btn w-25 mx-auto text-center btn-bluish" type="submit">Регистрирај се</button>
+        </div>
+
+        <div class="mt-5 w-100 mb-5">
+            <p class="text-center">Веќе имаш акаунт? <a href="/login" class="purple-link">Најави се</a></p>
+        </div>
+
+    </form>
+
+</div>
+
+
+{% endblock %}
