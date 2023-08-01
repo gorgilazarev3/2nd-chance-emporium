@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col me-5">
+            <img class="details-image" src="{{product.cover_image.url}}" alt="Cover image for the product">
+        </div>
+        <div class="col ms-5 details-product">
+            <h2 class="card-title">{{product.category.category}}</h2>
+            <h1 class="card-subtitle mb-5" style="font-weight: 700">{{product.title}}</h1>
+            <div class="details-card row mt-5">
+                <div class="col">
+                    <h6 class="fw-bold">Информации за продавачот:</h6>
+                    <p class="details-card-seller mt-3">{{product.seller.name}}   ({{num_ratings}} рецензии)</p>
+
+                    {% for star in stars %}
+                    {% if star == 'star_empty' %}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="orange" class="bi bi-star" viewBox="0 0 16 16">
+  <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+</svg>
+                    {% else %}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="orange" class="bi bi-star-fill" viewBox="0 0 16 16">
+  <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+</svg>
+                    {% endif %}
+                    {% endfor %}
+
+                    <p class="details-card-seller mt-2">({{percentage}}% позитивни рецензии)</p>
+                </div>
+                <div class="col details-card-right">
+                    <p class="details-card-price text-center mb-5">${{product.price}}</p>
+
+                    <form method="POST">
+                    <button type="submit" class="btn btn-secondary text-light ms-3">Додади во кошничка</button>
+
+                    </form>
+                </div>
+
+
+            </div>
+            <div class="row mt-5">
+            <h3>Опис на производот:</h3>
+            <p class="details-description">{{product.description}}</p>
+        </div>
+        </div>
+
+
+    </div>
+</div>
+
+<div class="container-fluid mt-5 mb-5 p-0">
+    <div class="text-center page-header-div">
+        <h2 class="h2 fw-bold fs-1">СЛИЧНИ ПРОИЗВОДИ</h2>
+        <h4 class="page-header-subtitle">Препорачани за вас</h4>
+    </div>
+
+    <div class="similar-products-div">
+            <div class="row row-cols-4 g-5 mt-5 mb-5 pb-5">
+        {% for product in similar_products %}
+        <a class="card-product-link" href="/product/{{product.id}}">
+        <div class="card rounded col m-4" style="width: 18rem;">
+            <img src="{{product.cover_image.url}}" class="card-img-top" alt="Cover image for the product"
+                 style="max-height: 13rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{product.category.category}}</h5>
+                <h6 class="card-subtitle">{{product.title}}</h6>
+            </div>
+            <div class="card-footer" style="background-color: transparent; border-top: none;">
+                <p class="card-price">{{product.price}}$</p>
+            </div>
+        </div>
+            </a>
+        {% endfor %}
+    </div>
+    </div>
+</div>
+
+
+{% endblock %}

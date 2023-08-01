@@ -12,6 +12,7 @@
 <div class="container mt-5 mb-5">
     <div class="row row-cols-4 g-5 mt-5">
         {% for product in products %}
+        <a class="card-product-link" href="/product/{{product.id}}">
         <div class="card rounded col m-4" style="width: 18rem;">
             <img src="{{product.cover_image.url}}" class="card-img-top" alt="Cover image for the product"
                  style="max-height: 13rem;">
@@ -23,6 +24,7 @@
                 <p class="card-price">{{product.price}}$</p>
             </div>
         </div>
+            </a>
         {% endfor %}
     </div>
 

@@ -1,3 +1,5 @@
+import random
+
 import django
 from django.contrib.auth import authenticate
 from django.dispatch import receiver
@@ -5,6 +7,7 @@ from django.shortcuts import render, redirect
 from django.template import Template
 from django.db.models.signals import post_save
 from .models import *
+from django.db.models import Q
 # Create your views here.
 def index(request):
     newest_products = Product.objects.order_by('-id')[:4]
@@ -46,6 +49,23 @@ def register(request):
     is_seller = request.GET.get('seller', 'no')
     context = {"seller":is_seller}
     return render(request,"register.html",context)
+
+def details(request, id):
+    product = Product.objects.filter(id=id).first()
+    stars = []
+    for rating in range(0,int(product.seller.rating)):
+        stars.append("star_fill")
+
+    for rating in range(0, 5-len(stars)):
+        stars.append("star_empty")
+
+    num_ratings = random.randint(1,100)
+    positive_percentage = float((num_ratings*product.seller.rating)/(num_ratings*5))*100
+
+    similar_products = Product.objects.filter(category=product.category).filter(~Q(id=product.id))[:4]
+
+    context = {"product":product, "num_ratings": num_ratings, "stars": stars, "percentage": positive_percentage, "similar_products": similar_products}
+    return render(request,"details.html",context)
 
 @receiver(post_save,sender=ShopUser)
 def create_user(sender, instance, created, **kwargs):
