@@ -20,6 +20,55 @@ def allproducts(request):
     context = {"products":all_products,"banner":banner}
     return render(request,"products.html",context=context)
 
+def sale(request):
+    all_products = list(Product.objects.all())
+    # change 3 to how many random items you want
+    random_items = random.sample(all_products, 4)
+    banner = 'sale'
+    context = {"products":random_items,"banner":banner}
+    return render(request,"products.html",context=context)
+
+def newest(request):
+    all_products = Product.objects.order_by('-id')
+    banner = 'all'
+    context = {"products":all_products,"banner":banner}
+    return render(request,"products.html",context=context)
+
+def collectibles(request):
+    category = Category.objects.filter(category__iexact="КОЛЕКЦИОНЕРСКИ ПАРЧИЊА").first()
+    all_products = Product.objects.filter(category=category)
+    banner = 'collectibles'
+    context = {"products":all_products,"banner":banner}
+    return render(request,"products.html",context=context)
+
+def clothes(request):
+    category = Category.objects.filter(category__iexact="ОБЛЕКА").first()
+    all_products = Product.objects.filter(category=category)
+    banner = 'clothes'
+    context = {"products":all_products,"banner":banner}
+    return render(request,"products.html",context=context)
+
+def furniture(request):
+    category = Category.objects.filter(category__iexact="МЕБЕЛ").first()
+    all_products = Product.objects.filter(category=category)
+    banner = 'furniture'
+    context = {"products":all_products,"banner":banner}
+    return render(request,"products.html",context=context)
+
+def shoes(request):
+    category = Category.objects.filter(category__iexact="ОБУВКИ").first()
+    all_products = Product.objects.filter(category=category)
+    banner = 'shoes'
+    context = {"products":all_products,"banner":banner}
+    return render(request,"products.html",context=context)
+
+def miscellaneous(request):
+    category = Category.objects.filter(category__iexact="РАЗНО").first()
+    all_products = Product.objects.filter(category=category)
+    banner = 'misc'
+    context = {"products":all_products,"banner":banner}
+    return render(request,"products.html",context=context)
+
 def login(request):
     if request.method == 'POST':
         form_data = request.POST

@@ -56,19 +56,18 @@
 
         <div class="row row-cols-4 g-5 mt-5">
             {% for product in newest_products %}
-            <a class="card-product-link" href="/product/{{product.id}}">
-            <div class="card rounded col m-4" style="width: 18rem;">
-                <img src="{{product.cover_image.url}}" class="card-img-top" alt="Cover image for the product"
-                     style="max-height: 13rem;">
-                <div class="card-body">
-                    <h5 class="card-title">{{product.category.category}}</h5>
-                    <h6 class="card-subtitle">{{product.title}}</h6>
-
-                </div>
-                <div class="card-footer" style="background-color: transparent; border-top: none;">
-                    <p class="card-price">{{product.price}}$</p>
-                </div>
+        <a class="card-product-link" href="/product/{{product.id}}">
+        <div class="card rounded col m-4" style="width: 18rem;">
+            <img src="{{product.cover_image.url}}" class="card-img-top" alt="Cover image for the product"
+                 style="max-height: 13rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{product.category.category}}</h5>
+                <h6 class="card-subtitle">{{product.title}}</h6>
             </div>
+            <div class="card-footer" style="background-color: transparent; border-top: none;">
+                <p class="card-price">{{product.price}}$</p>
+            </div>
+        </div>
             </a>
             {% endfor %}
         </div>

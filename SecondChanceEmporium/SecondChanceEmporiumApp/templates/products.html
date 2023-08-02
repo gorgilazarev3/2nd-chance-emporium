@@ -6,6 +6,18 @@
 <div class="container mt-5 mb-5">
     {% if banner == 'all' %}
     <img src="../data/files/Banner-PRODUCTS.png">
+    {% elif banner == 'sale' %}
+    <img src="../data/files/Banner-New-Macedonian-scaled.png">
+    {% elif banner == 'collectibles' %}
+    <img src="../data/files/Banner-COLLECTIBLES.png">
+    {% elif banner == 'clothes' %}
+    <img src="../data/files/Banner-CLOTHES.png">
+    {% elif banner == 'furniture' %}
+    <img src="../data/files/Banner-FURNITURE.png">
+        {% elif banner == 'misc' %}
+    <img src="../data/files/Banner-MISC.png">
+        {% elif banner == 'shoes' %}
+    <img src="../data/files/Banner-SHOES.png">
     {% endif %}
 </div>
 
@@ -21,7 +33,15 @@
                 <h6 class="card-subtitle">{{product.title}}</h6>
             </div>
             <div class="card-footer" style="background-color: transparent; border-top: none;">
+                {% if banner == 'sale' %}
+                {% load mathfilters %}
+                <p class="card-price"><span class="text-danger text-decoration-line-through">{{product.price}}$</span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+</svg> {{product.price|div:2|floatformat:2}}$</p>
+                {% else %}
                 <p class="card-price">{{product.price}}$</p>
+                {% endif %}
+
             </div>
         </div>
             </a>
