@@ -116,6 +116,45 @@ def details(request, id):
     context = {"product":product, "num_ratings": num_ratings, "stars": stars, "percentage": positive_percentage, "similar_products": similar_products}
     return render(request,"details.html",context)
 
+
+def addtocart(request):
+    if request.method == 'POST':
+        form_data = request.POST
+        product_id = form_data.get("product_id")
+        if request.user:
+            shop_user = ShopUser.objects.filter(user_id=request.user).first()
+            shopping_cart = ShoppingCart.objects.filter(user=shop_user).first()
+            if not shopping_cart:
+                shopping_cart = ShoppingCart(user=shop_user)
+                shopping_cart.save()
+
+            product = Product.objects.filter(id=product_id).first()
+            product_in_cart = shopping_cart.products.filter(id=product_id)
+            if not product_in_cart:
+                shopping_cart.products.add(product)
+            return redirect("details",product_id)
+
+def cart(request):
+    if request.user:
+        shop_user = ShopUser.objects.filter(user_id=request.user).first()
+        shopping_cart = ShoppingCart.objects.filter(user=shop_user).first()
+        if not shopping_cart:
+            shopping_cart = ShoppingCart(user=shop_user)
+            shopping_cart.save()
+
+        context = {"shopping_cart":shopping_cart,"products":shopping_cart.products.all()}
+        return render(request,"shopping-cart.html",context)
+
+def removefromcart(request):
+    if request.user:
+        product_id = request.GET.get('product_id', '-1')
+        shop_user = ShopUser.objects.filter(user_id=request.user).first()
+        shopping_cart = ShoppingCart.objects.filter(user=shop_user).first()
+        product_in_cart = shopping_cart.products.filter(id=product_id).first()
+        if product_in_cart:
+            shopping_cart.products.remove(product_in_cart)
+        return redirect("cart")
+
 @receiver(post_save,sender=ShopUser)
 def create_user(sender, instance, created, **kwargs):
     if created and instance:

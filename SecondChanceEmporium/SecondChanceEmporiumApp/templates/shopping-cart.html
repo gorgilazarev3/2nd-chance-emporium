@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+            <div class="my-card beige-card" style="height:7em; border-radius: 1em;">
+                <h1 class="h1 text-center align-middle mt-2 pt-4">КУПУВАЧКА КОШНИЧКА</h1>
+            </div>
+
+            <hr style="border: solid black 1px;">
+
+            {% for product in products %}
+            <div class="details-card row mb-3">
+                <div class="col-2">
+                    <img class="thumbnail rounded rounded-4" src="{{product.cover_image.url}}" width="100">
+                </div>
+                <div class="col-6">
+                    <h5 class="card-subtitle mb-3 mt-2" style="font-weight: 700">{{product.title}}</h5>
+                    <h6 class="fw-bold details-card-seller text-truncate">{{product.description}}</h6>
+                </div>
+                <div class="col-4">
+<p class="details-card-price text-center mb-2 mt-3">${{product.price}} <a href="/remove-from-cart?product_id={{product.id}}" class="text-dark text-decoration-none"> <span class="ps-2"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+</svg></span></a></p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="col">
+
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

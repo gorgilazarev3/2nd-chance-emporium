@@ -31,10 +31,24 @@
                 <div class="col details-card-right">
                     <p class="details-card-price text-center mb-5">${{product.price}}</p>
 
-                    <form method="POST">
-                    <button type="submit" class="btn btn-secondary text-light ms-3">Додади во кошничка</button>
-
+                    <form method="POST" action="/add-to-cart/">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{product.id}}" name="product_id">
+                        <button id="add-to-cart-btn" type="submit" class="btn btn-secondary text-light ms-3">Додади во кошничка</button>
                     </form>
+                </div>
+
+                <div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3 pb-0">
+                    <div id="add-to-cart-toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header">
+                            <strong class="me-auto">Додаден производ</strong>
+                            <small>во моментот</small>
+<!--                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>-->
+                        </div>
+                        <div class="toast-body">
+                            Успешно додадовте производ во вашата кошничка.
+                        </div>
+                    </div>
                 </div>
 
 
@@ -76,5 +90,19 @@
     </div>
 </div>
 
+
+{% endblock %}
+
+{% block scripts %}
+
+const toastTrigger = document.getElementById('add-to-cart-btn')
+const toastLiveExample = document.getElementById('add-to-cart-toast')
+
+if (toastTrigger) {
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+  toastTrigger.addEventListener('click', () => {
+    toastBootstrap.show()
+  })
+}
 
 {% endblock %}
