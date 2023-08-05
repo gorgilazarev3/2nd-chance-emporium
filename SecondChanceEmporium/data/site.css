@@ -75,11 +75,21 @@ a.dropdown-item:hover {
     color: rgba(0,0,0,0.59);
 }
 
+.reddish-card p {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 1em;
+    color: whitesmoke !important;
+}
+
 .beige-card p a{
     text-decoration: underline;
     font-weight: 900;
     color: rgba(0,0,0,0.59);
 }
+
 
 .reddish-card .h3 {
     font-family: 'Playfair Display SC', serif;
@@ -124,6 +134,11 @@ a.dropdown-item:hover {
 .btn-bluish {
     color: whitesmoke;
     background-color: #8B92AF !important;
+}
+
+.btn-darkish {
+    color: whitesmoke;
+    background-color: #425466 !important;
 }
 
 form {
@@ -194,4 +209,34 @@ form {
     background-blend-mode: overlay;
     background-size: cover;
     background-color: #AF8B92;
+}
+
+.my-green-bg {
+    background-color: #A4AF8B !important;
+}
+
+.payment-section {
+    font-family: 'Open Sans', sans-serif;
+    color: whitesmoke;
+    border-radius: 1em;
+    width: 80%;
+}
+
+.payment-section input {
+    color: #495057;
+    background-color: #EAE8E0;
+}
+
+.my-text-darkish {
+    color: #495057 !important;
+}
+
+.dashboard-card-text {
+    font-weight: 900 !important;
+
+}
+
+.link-no-deco {
+    text-decoration: none !important;
+    color: initial !important;
 }

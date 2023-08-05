@@ -1,0 +1,80 @@
+{% extends 'base.html ' %}
+
+{% block content %}
+
+{% if request.user %}
+
+<div class="container mt-5 mb-5">
+    <h1 class="h1 fw-normal text-center fs-1 mb-3">Добредојде <span class="fw-bold">{{user.name}}!</span></h1>
+
+    <div>
+        <div class="row mb-5 mt-5">
+
+            <div class="col">
+                <a class="link-no-deco " href="#">
+                    <div class="mx-auto my-card beige-card rounded-2 w-75" style="height: fit-content"><p
+                            class="my-text-darkish dashboard-card-text p-5">ВИДИ ИСТОРИЈА НА НАРАЧКИ</p></div>
+                </a>
+            </div>
+            <div class="col">
+                {% if user.is_seller %}
+                <a class="link-no-deco " href="/new-product">
+                    <div class="mx-auto my-card reddish-card rounded-2 w-75" style="height: fit-content"><p
+                            class="my-text-darkish dashboard-card-text p-5">ПОСТАВИ НОВ ОГЛАС</p></div>
+                </a>
+                {% else %}
+                <a href="#" class="link-no-deco" type="button" data-bs-toggle="modal"
+                   data-bs-target="#become-seller-modal" style="-webkit-appearance: initial;">
+                    <div class="mx-auto my-card reddish-card rounded-2 w-75" style="height: fit-content"><p
+                            class="my-text-darkish dashboard-card-text p-5">ЗАПОЧНИ СО ПРОДАЖБА</p></div>
+                </a>
+
+
+                <div class="modal fade" id="become-seller-modal" tabindex="-1" aria-labelledby="become-seller-modalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="become-seller-modalLabel">Започнете со продажба</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Дали сакате да го надополните вашиот акаунт со можноста за поставување на огласи за производи?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Назад</button>
+                                <a href="/become-seller" type="button" class="btn text-light my-green-bg">Да, сакам</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row mb-5 mt-5">
+
+            <div class="col">
+                <a class="link-no-deco " href="#">
+                    <div class="mx-auto my-card my-bluish-color-bg reddish-card rounded-2 w-75"
+                         style="height: fit-content"><p
+                            class="my-text-darkish dashboard-card-text p-5">ПРОМЕНИ ПОСТАВКИ</p></div>
+                </a>
+            </div>
+            <div class="col">
+                <a class="link-no-deco " href="/logout">
+                    <div class="mx-auto my-card beige-card my-green-bg rounded-2 w-75" style="height: fit-content"><p
+                            class="my-text-darkish dashboard-card-text p-5">ОДЈАВИ <br> СЕ</p></div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

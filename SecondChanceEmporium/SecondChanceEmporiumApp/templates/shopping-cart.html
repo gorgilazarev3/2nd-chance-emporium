@@ -3,37 +3,197 @@
 {% block content %}
 
 <div class="container mt-5">
-    <div class="row">
+    <div class="row row-cols-2">
         <div class="col">
             <div class="my-card beige-card" style="height:7em; border-radius: 1em;">
-                <h1 class="h1 text-center align-middle mt-2 pt-4">КУПУВАЧКА КОШНИЧКА</h1>
+                <h1 class="my-text-darkish h1 text-center align-middle mt-2 pt-4">КУПУВАЧКА КОШНИЧКА</h1>
             </div>
 
             <hr style="border: solid black 1px;">
+
+            <p class="lead mt-5" style="font-weight: 500">Имате вкупно {{products|length}} производ/и додаден/и во вашата кошничка.</p>
 
             {% for product in products %}
             <div class="details-card row mb-3">
                 <div class="col-2">
                     <img class="thumbnail rounded rounded-4" src="{{product.cover_image.url}}" width="100">
                 </div>
-                <div class="col-6">
-                    <h5 class="card-subtitle mb-3 mt-2" style="font-weight: 700">{{product.title}}</h5>
-                    <h6 class="fw-bold details-card-seller text-truncate">{{product.description}}</h6>
+                <div class="col-6 ps-4">
+                    <h5 class="card-subtitle mb-3 mt-2 fs-5 text-wrap" style="font-weight: 700">{{product.title}}</h5>
+                    <h6 class="fw-bold details-card-seller text-truncate fs-6">{{product.description}}</h6>
                 </div>
                 <div class="col-4">
-<p class="details-card-price text-center mb-2 mt-3">${{product.price}} <a href="/remove-from-cart?product_id={{product.id}}" class="text-dark text-decoration-none"> <span class="ps-2"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                    <p class="details-card-price text-center mb-2 mt-3 fs-3">${{product.price}} <a
+                            href="/remove-from-cart?product_id={{product.id}}"
+                            class="text-dark text-decoration-none"> <span class="ps-2"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                            class="bi bi-trash3" viewBox="0 0 16 16">
   <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
 </svg></span></a></p>
                 </div>
             </div>
             {% endfor %}
         </div>
-        <div class="col">
 
+
+        {% if not payment %}
+
+        <div class="col">
+            <div class="mt-5 my-green-bg payment-section ms-5 pb-2 mb-5">
+                <h4 class="h4 text-light mb-5 text-center pt-4 fw-bold">Податоци за испорака</h4>
+                <div>
+                    <div class="mb-3 mx-auto" style="width: 90%">
+                        <label for="address_input" class="form-label fs-5">Адреса за испорака</label>
+                        <input type="text" class="form-control" id="address_input"
+                               placeholder="Внесете ја вашата адреса тука">
+                    </div>
+
+                    <div class="mb-3 mx-auto" style="width: 90%">
+                        <label for="phone_input" class="form-label fs-5">Телефонски број за контакт</label>
+                        <input type="text" class="form-control" id="phone_input"
+                               placeholder="Внесете телефонски број за контакт">
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col">
+                            <div class="mb-3 mx-auto" style="width: 80%">
+                                <label for="place_input" class="form-label fs-5">Место</label>
+                                <input type="text" class="form-control" id="place_input"
+                                       placeholder="Место / општина">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3 mx-auto" style="width: 80%">
+                                <label for="postal_input" class="form-label fs-5">Поштенски број</label>
+                                <input type="text" class="form-control" id="postal_input"
+                                       placeholder="пр. 1000">
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <hr class="mx-auto" style="border: solid darkslateblue 1px; width: 90%">
+
+                <div class="row fw-bold mx-auto" style="width: 90%">
+                    <div class="col">
+                        <p class="text-start">Цена на производи</p>
+                    </div>
+                    <div class="col">
+                        <p class="text-end">${{shopping_cart.total_price}}</p>
+                    </div>
+                </div>
+
+                <div class="row fw-bold mx-auto" style="width: 90%">
+                    <div class="col">
+                        <p class="text-start">Достава</p>
+                    </div>
+                    <div class="col">
+                        <p class="text-end">${{shopping_cart.shipping_cost|floatformat:2}}</p>
+                    </div>
+                </div>
+
+                <div class="row fw-bold mx-auto" style="width: 90%">
+                    <div class="col">
+                        <p class="text-start">Вкупно за плаќање</p>
+                    </div>
+                    <div class="col">
+                        <p class="text-end">${{shopping_cart.total_with_shipping|floatformat:2}}</p>
+                    </div>
+                </div>
+
+                <a href="/order" class="btn btn-bluish fw-bold mx-auto d-block w-75 mt-4" style="border-radius: 0.90em;">Плаќање во готово при достава <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+</svg></a>
+
+                <a href="/cart?payment=card" class="btn btn-darkish fw-bold mx-auto d-block w-75 mt-4 mb-3" style="border-radius: 0.90em;">Плаќање со платежна картичка <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+</svg></a>
+
+            </div>
         </div>
+
+        {% elif payment == 'card' %}
+
+                <div class="col">
+            <div class="mt-5 my-green-bg payment-section ms-5 pb-3 mb-5">
+                <h4 class="h4 text-light mb-5 text-center pt-4 fw-bold">Податоци за плаќање</h4>
+                <div>
+                    <div class="mb-3 mx-auto" style="width: 90%">
+                        <label for="card_name_input" class="form-label fs-5">Име на носител на картичка</label>
+                        <input type="text" class="form-control" id="card_name_input"
+                               placeholder="пр. Петко Петковски">
+                    </div>
+
+                    <div class="mb-3 mx-auto" style="width: 90%">
+                        <label for="card_number_input" class="form-label fs-5">Број на картичка</label>
+                        <input type="text" class="form-control" id="card_number_input"
+                               placeholder="пр. 1111 2222 3333 4444">
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col">
+                            <div class="mb-3 mx-auto" style="width: 80%">
+                                <label for="card_expiry_input" class="form-label fs-5 text-nowrap">Датум на истекување</label>
+                                <input type="text" class="form-control" id="card_expiry_input"
+                                       placeholder="МM / ГГ">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3 mx-auto" style="width: 80%">
+                                <label for="card_cvc_input" class="form-label fs-5">CVC</label>
+                                <input type="text" class="form-control" id="card_cvc_input"
+                                       placeholder="пр. 111">
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <hr class="mx-auto" style="border: solid darkslateblue 1px; width: 90%">
+
+                <div class="row fw-bold mx-auto" style="width: 90%">
+                    <div class="col">
+                        <p class="text-start">Цена на производи</p>
+                    </div>
+                    <div class="col">
+                        <p class="text-end">${{shopping_cart.total_price}}</p>
+                    </div>
+                </div>
+
+                <div class="row fw-bold mx-auto" style="width: 90%">
+                    <div class="col">
+                        <p class="text-start">Достава</p>
+                    </div>
+                    <div class="col">
+                        <p class="text-end">${{shopping_cart.shipping_cost|floatformat:2}}</p>
+                    </div>
+                </div>
+
+                <div class="row fw-bold mx-auto" style="width: 90%">
+                    <div class="col">
+                        <p class="text-start">Вкупно за плаќање</p>
+                    </div>
+                    <div class="col">
+                        <p class="text-end">${{shopping_cart.total_with_shipping|floatformat:2}}</p>
+                    </div>
+                </div>
+
+                <a href="/order" class="btn btn-lg btn-darkish fw-bold mx-auto d-block w-75 mt-4" style="border-radius: 0.90em;">${{shopping_cart.total_with_shipping|floatformat:2}} <span class="ps-5">Изврши наплата</span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+</svg></a>
+
+
+            </div>
+        </div>
+
+        {% endif %}
+
+
     </div>
 </div>
-
 
 
 {% endblock %}

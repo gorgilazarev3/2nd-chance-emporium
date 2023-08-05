@@ -2,6 +2,7 @@ import random
 
 import django
 from django.contrib.auth import authenticate
+from django.contrib.auth import logout
 from django.dispatch import receiver
 from django.shortcuts import render, redirect
 from django.template import Template
@@ -82,6 +83,11 @@ def login(request):
             return redirect("login")
     return render(request,"login.html")
 
+def logout(request):
+    if request.user.is_authenticated:
+        django.contrib.auth.logout(request)
+        return redirect("index")
+
 def register(request):
     if request.method == 'POST':
         form_data = request.POST
@@ -121,7 +127,7 @@ def addtocart(request):
     if request.method == 'POST':
         form_data = request.POST
         product_id = form_data.get("product_id")
-        if request.user:
+        if request.user.is_authenticated:
             shop_user = ShopUser.objects.filter(user_id=request.user).first()
             shopping_cart = ShoppingCart.objects.filter(user=shop_user).first()
             if not shopping_cart:
@@ -132,28 +138,87 @@ def addtocart(request):
             product_in_cart = shopping_cart.products.filter(id=product_id)
             if not product_in_cart:
                 shopping_cart.products.add(product)
+                shopping_cart.total_price = shopping_cart.total_price + product.price
+                shopping_cart.save()
             return redirect("details",product_id)
+        return redirect("login")
 
 def cart(request):
-    if request.user:
+    if request.user.is_authenticated:
         shop_user = ShopUser.objects.filter(user_id=request.user).first()
         shopping_cart = ShoppingCart.objects.filter(user=shop_user).first()
         if not shopping_cart:
             shopping_cart = ShoppingCart(user=shop_user)
             shopping_cart.save()
 
-        context = {"shopping_cart":shopping_cart,"products":shopping_cart.products.all()}
+        payment = request.GET.get('payment')
+        context = {"shopping_cart":shopping_cart,"products":shopping_cart.products.all(),"payment":payment}
         return render(request,"shopping-cart.html",context)
+    return redirect("login")
 
 def removefromcart(request):
-    if request.user:
+    if request.user.is_authenticated:
         product_id = request.GET.get('product_id', '-1')
         shop_user = ShopUser.objects.filter(user_id=request.user).first()
         shopping_cart = ShoppingCart.objects.filter(user=shop_user).first()
         product_in_cart = shopping_cart.products.filter(id=product_id).first()
         if product_in_cart:
             shopping_cart.products.remove(product_in_cart)
+            shopping_cart.total_price = shopping_cart.total_price-product_in_cart.price
+            shopping_cart.save()
         return redirect("cart")
+    return redirect("login")
+
+
+def order(request):
+    if request.user.is_authenticated:
+        shop_user = ShopUser.objects.filter(user_id=request.user).first()
+        shopping_cart = ShoppingCart.objects.filter(user=shop_user).first()
+        if shopping_cart.total_price > 0:
+            all_products = shopping_cart.products.all()
+            products_in_order = []
+            products_in_order_ids = []
+            for product in all_products:
+                product_in_order = ProductInOrder.objects.filter(title=product.title).first()
+                if not product_in_order:
+                    product_in_order = ProductInOrder(title=product.title, category=product.category, description=product.description, cover_image=product.cover_image, price=product.price)
+                    product_in_order.save()
+                products_in_order.append(product_in_order)
+                products_in_order_ids.append(product_in_order.id)
+            order = Order(buyer=shop_user, total_price=shopping_cart.total_price)
+            order.save()
+            order.products.set(products_in_order_ids)
+            shopping_cart.total_price = 0.0
+            shopping_cart.products.clear()
+            shopping_cart.save()
+            context = {"products": products_in_order, "order": order}
+            return render(request,"successful-order.html",context)
+
+    return redirect("login")
+def dashboard(request):
+    if request.user.is_authenticated:
+        shop_user = ShopUser.objects.filter(user_id=request.user).first()
+        context = {"user":shop_user}
+        return render(request,"user-dashboard.html",context)
+    return redirect("login")
+
+def becomeseller(request):
+    if request.user.is_authenticated:
+        shop_user = ShopUser.objects.filter(user_id=request.user).first()
+        shop_user.is_seller = True
+        shop_user.save()
+        context = {"user": shop_user}
+        return render(request,"user-dashboard.html",context)
+    return redirect("login")
+
+def postnewproduct(request):
+    if request.user.is_authenticated:
+        shop_user = ShopUser.objects.filter(user_id=request.user).first()
+        if shop_user.is_seller:
+            categories = Category.objects.all()
+            context = {"categories":categories}
+            return render(request,"post-new-product.html",context)
+    return redirect("dashboard")
 
 @receiver(post_save,sender=ShopUser)
 def create_user(sender, instance, created, **kwargs):
