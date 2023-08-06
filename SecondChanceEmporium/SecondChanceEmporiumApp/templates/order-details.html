@@ -1,0 +1,68 @@
+{% extends 'base.html ' %}
+
+{% block content %}
+
+<div class="container mt-5 mb-5">
+    <div class="mx-auto w-50">
+        <div class="my-card beige-card" style="height:7em; border-radius: 1em;">
+            <h1 class="my-text-darkish h1 text-center align-middle mt-2 pt-4">ДЕТАЛИ ЗА НАРАЧКА</h1>
+        </div>
+
+        <hr style="border: solid black 1px;">
+
+        <p class="mt-5 fs-6 text-center fw-bolder">Вашата нарачка со идентификациски број {{order.id}} е направена на {{order.date}} и ги содржи следните производи:</p>
+
+
+        <div class="details-card row p-0 mb-3">
+            {% for product in order.products.all %}
+            <div class="row ps-2 pe-2 mx-auto mt-3">
+                <div class="col-2">
+                    <img class="thumbnail rounded rounded-4" src="{{product.cover_image.url}}" width="100">
+                </div>
+                <div class="col-6 ps-4">
+                    <h5 class="card-subtitle mb-3 mt-2 fs-5 text-wrap" style="font-weight: 700">{{product.title}}</h5>
+                    <h6 class="fw-bold details-card-seller text-truncate fs-6">{{product.description}}</h6>
+                </div>
+                <div class="col-4">
+                    <p class="details-card-price text-center mb-2 mt-3 fs-3">${{product.price}}</p>
+                </div>
+
+
+            </div>
+            <hr class="mt-2 mx-auto" style="border: solid black 1px;">
+            {% endfor %}
+
+            <div class="row fw-bold mx-auto fs-5 mt-3" style="width: 90%">
+                <div class="col">
+                    <p class="text-start">Цена на производи:</p>
+                </div>
+                <div class="col">
+                    <p class="text-end">${{order.total_price}}</p>
+                </div>
+            </div>
+
+            <div class="row fw-bold mx-auto fs-5 mt-3" style="width: 90%">
+                <div class="col">
+                    <p class="text-start">Цена за достава:</p>
+                </div>
+                <div class="col">
+                    <p class="text-end">${{order.shipping_cost|floatformat:2}}</p>
+                </div>
+            </div>
+
+            <hr class="mt-2 mx-auto" style="border: solid black 1px;">
+
+            <div class="row fw-bold mx-auto fs-5 mt-3" style="width: 90%">
+                <div class="col">
+                    <p class="text-start">Вкупно наплатена цена со вклучена достава:</p>
+                </div>
+                <div class="col fs-4">
+                    <p class="text-end fw-bolder">${{order.total_with_shipping|floatformat:2}}</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

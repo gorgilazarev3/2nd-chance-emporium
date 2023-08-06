@@ -1,5 +1,5 @@
 import random
-
+import time
 import django
 from django.contrib.auth import authenticate
 from django.contrib.auth import logout
@@ -87,6 +87,43 @@ def logout(request):
     if request.user.is_authenticated:
         django.contrib.auth.logout(request)
         return redirect("index")
+
+def manageuser(request):
+    if request.user.is_authenticated:
+        if request.method == "GET":
+            shop_user = ShopUser.objects.filter(user_id=request.user).first()
+            context = {"user":shop_user}
+            return render(request,"user-management.html",context)
+        elif request.method == "POST":
+            form_data = request.POST
+            name = form_data.get('user_name')
+            username = form_data.get('user_email')
+            shop_user = ShopUser.objects.filter(user_id=request.user).first()
+            shop_user.name = name
+            user = User.objects.filter(username=shop_user.email).first()
+            shop_user.email = username
+            user.username = username
+            shop_user.save()
+            user.save()
+            return redirect("dashboard")
+
+def changepassword(request):
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            form_data = request.POST
+            oldpassword = form_data.get('user_oldpassword')
+            newpassword = form_data.get('user_newpassword')
+            confirmpassword = form_data.get('user_confirmpassword')
+            username = form_data.get('user_email')
+            user = authenticate(username=username, password=oldpassword)
+            if user:
+                if newpassword == confirmpassword:
+                    user.set_password(newpassword)
+                    user.save()
+            return redirect("dashboard")
+    return render(request,"change-password.html")
+
+
 
 def register(request):
     if request.method == 'POST':
@@ -195,6 +232,21 @@ def order(request):
             return render(request,"successful-order.html",context)
 
     return redirect("login")
+
+def orderhistory(request):
+    if request.user.is_authenticated:
+        shop_user = ShopUser.objects.filter(user_id=request.user).first()
+        orders = Order.objects.filter(buyer=shop_user)
+        context = {"orders":orders}
+        return render(request,"order-history.html",context)
+
+def orderdetails(request, order_id):
+    if request.user.is_authenticated:
+        shop_user = ShopUser.objects.filter(user_id=request.user).first()
+        order_obj = Order.objects.filter(id=order_id,buyer=shop_user).first()
+        context = {"order":order_obj}
+        return render(request,"order-details.html",context)
+
 def dashboard(request):
     if request.user.is_authenticated:
         shop_user = ShopUser.objects.filter(user_id=request.user).first()
@@ -214,10 +266,33 @@ def becomeseller(request):
 def postnewproduct(request):
     if request.user.is_authenticated:
         shop_user = ShopUser.objects.filter(user_id=request.user).first()
-        if shop_user.is_seller:
-            categories = Category.objects.all()
-            context = {"categories":categories}
-            return render(request,"post-new-product.html",context)
+        if request.method == 'GET':
+            if shop_user.is_seller:
+                categories = Category.objects.all()
+                context = {"categories":categories}
+                return render(request,"post-new-product.html",context)
+        elif request.method == 'POST':
+            if shop_user.is_seller:
+                form_data = request.POST
+                title = form_data.get('product_title')
+                desc = form_data.get('product_description')
+                category = form_data.get('product_category')
+                category_obj = Category.objects.filter(id=category).first()
+                images = request.FILES.getlist('product_images')
+                cover_image = request.FILES.get("product_cover_image")
+                price = form_data.get("product_price")
+                if cover_image:
+                    new_product = Product(title=title,description=desc,category=category_obj,cover_image=cover_image,is_approved=True,price=price,seller=shop_user)
+                    new_product.save()
+                else:
+                    new_product = Product(title=title,description=desc,category=category_obj,cover_image=images[0],is_approved=True,price=price,seller=shop_user)
+                    new_product.save()
+                images_ids = []
+                for image in images:
+                    image_obj = ProductImage.objects.create(image=image)
+                    images_ids.append(image_obj.id)
+                new_product.images.set(images_ids)
+                return render(request, "posted-product.html")
     return redirect("dashboard")
 
 @receiver(post_save,sender=ShopUser)

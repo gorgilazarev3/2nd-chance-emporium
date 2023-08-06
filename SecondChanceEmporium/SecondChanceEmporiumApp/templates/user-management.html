@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5 mb-5">
+    <div class="mx-auto w-50">
+        <div class="my-card beige-card" style="height:7em; border-radius: 1em;">
+            <h1 class="my-text-darkish h1 text-center align-middle mt-2 pt-4">Промени поставки</h1>
+        </div>
+
+        <hr style="border: solid black 1px;">
+
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="row mb-3">
+                <label for="user-name" class="col-sm-2 col-form-label w-50 fs-5">Име и презиме</label>
+                <div class="col-sm-10 w-50">
+                    <input type="text" class="form-control w-100" name="user_name" id="user-name"
+                           value="{{user.name}}">
+                </div>
+            </div>
+             <div class="row mb-3">
+                <label for="user-email" class="col-sm-2 col-form-label w-50 fs-5">Емаил</label>
+                <div class="col-sm-10 w-50">
+                    <input type="email" class="form-control w-100" name="user_email" id="user-email"
+                           value="{{user.email}}">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label w-50 fs-5">Лозинка</label>
+                <div class="col-sm-10 w-50">
+                    <a href="/change-password" class="btn btn-bluish fw-bold text-center mx-auto d-block w-100">Промена на лозинка</a>
+
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-lg btn-darkish fw-bold ps-5 pe-5 pt-3 pb-3 mx-auto d-block mt-5">ЗАЧУВАЈ ПОСТАВКИ
+            </button>
+        </form>
+
+
+    </div>
+</div>
+
+{% endblock %}

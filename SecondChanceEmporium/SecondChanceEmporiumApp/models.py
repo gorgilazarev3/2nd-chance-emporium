@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -51,6 +53,7 @@ class Order(models.Model):
     products = models.ManyToManyField(to=ProductInOrder,symmetrical=False,blank=True)
     buyer = models.ForeignKey(to=ShopUser,on_delete=models.CASCADE)
     total_price = models.DecimalField(decimal_places=2, max_digits=10, default=0.0)
+    date = models.DateTimeField(default=datetime.now())
 
     def shipping_cost(self):
         return float(self.total_price)*0.05

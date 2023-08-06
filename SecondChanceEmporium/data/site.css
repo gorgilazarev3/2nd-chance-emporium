@@ -1,5 +1,5 @@
 .page-header-div h2.h2 {
-    font-family: 'Playfair Display' !important;
+    font-family: 'Playfair Display', serif !important;
 
 }
 
@@ -240,3 +240,4 @@ form {
     text-decoration: none !important;
     color: initial !important;
 }
+
