@@ -55,6 +55,7 @@ a.dropdown-item:hover {
 
 .reddish-card {
     background-color: #AF8B92;
+    background-blend-mode: soft-light;
 }
 
 .beige-card .h3 {
@@ -98,7 +99,7 @@ a.dropdown-item:hover {
     font-weight: 900;
     text-align: center;
     margin-top: 1em;
-    color: gray;
+    color: white;
 }
 
 .card {
@@ -240,4 +241,5 @@ form {
     text-decoration: none !important;
     color: initial !important;
 }
+
 

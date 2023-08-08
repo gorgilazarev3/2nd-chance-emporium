@@ -4,7 +4,52 @@
 <div class="container mt-5 mb-5">
     <div class="row">
         <div class="col me-5">
-            <img class="details-image" src="{{product.cover_image.url}}" alt="Cover image for the product">
+<!--            <img class="details-image" src="{{product.cover_image.url}}" alt="Cover image for the product">-->
+            <div id="carouselExampleControls" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                        <div class="carousel-indicators">
+                            {% for image in product.images.all %}
+            {% if forloop.counter == 1 %}
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ forloop.counter0 }}" class="active mt-5" aria-current="true" aria-label="Slide 1"></button>
+            {% else %}
+
+    <button class="mt-5" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ forloop.counter0 }}" aria-label="Slide"></button>
+            {% endif %}
+                            {% endfor %}
+  </div>
+  <div class="carousel-inner">
+
+      {% if product.images.all|length == 0 %}
+
+      <img class="details-image" src="{{product.cover_image.url}}" alt="Cover image for the product">
+
+      {% else %}
+
+          {% for image in product.images.all %}
+
+
+
+          {% if forloop.counter == 1 %}
+        <div class="carousel-item active">
+          <img src="{{image.image.url}}" class="d-block w-100" alt="Image of the product">
+        </div>
+          {% else %}
+        <div class="carousel-item">
+          <img src="{{image.image.url}}" class="d-block w-100" alt="Image of the product">
+        </div>
+          {% endif %}
+          {% endfor %}
+
+      {% endif %}
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
         </div>
         <div class="col ms-5 details-product">
             <h2 class="card-title">{{product.category.category}}</h2>

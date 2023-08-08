@@ -9,6 +9,7 @@ from django.template import Template
 from django.db.models.signals import post_save
 from .models import *
 from django.db.models import Q
+from django.core.mail import send_mail
 # Create your views here.
 def index(request):
     newest_products = Product.objects.order_by('-id')[:4]
@@ -133,8 +134,10 @@ def register(request):
         password = form_data.get("password_input")
         is_seller = request.GET.get('seller', 'no')
         is_seller = True if is_seller == 'yes' else False
-        shop_user = ShopUser(name=name,email=email,is_seller=is_seller)
+        rating = random.randint(1, 5)
+        shop_user = ShopUser(name=name,email=email,is_seller=is_seller,rating=rating)
         shop_user.password = password
+
         post_save.send(ShopUser, instance=shop_user, created=True)
         return redirect("login")
 
@@ -292,6 +295,22 @@ def postnewproduct(request):
                     image_obj = ProductImage.objects.create(image=image)
                     images_ids.append(image_obj.id)
                 new_product.images.set(images_ids)
+                # message = ""
+                # message = message.join("Здраво " + shop_user.name + "\n")
+                # message = message.join(
+                #     "Би сакале да Ве известиме дека вашиот оглас беше прегледан и ги исполнува барањата и соодветствува во целост со состојбата прикажана на фотографиите.\n")
+                # message = message.join("Во прилог се деталите за вашиот успешно објавен оглас.\n")
+                # message = message.join("Наслов: " + new_product.title + "\n")
+                # message = message.join("Категорија: " + new_product.category.category + "\n")
+                # message = message.join("Цена: " + new_product.price + "\n")
+                # message = message.join("Ви благодариме за вашата соработка, 2ndChanceEmporium")
+                # send_mail(
+                #     "Известување за поставен оглас - 2ndChanceEmporium",
+                #     message,
+                #     "noreply@2ndchanceemporium.com",
+                #     [shop_user.email],
+                #     fail_silently=False,
+                # )
                 return render(request, "posted-product.html")
     return redirect("dashboard")
 
