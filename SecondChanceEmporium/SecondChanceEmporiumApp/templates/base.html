@@ -9,6 +9,8 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
     <link href="/data/site.css" rel="stylesheet">
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
@@ -22,8 +24,8 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-light my-beige-color-bg flex-column">
         <div class="container-fluid justify-content-between ps-5 pe-5 mt-2 mb-3">
-            <form class="d-flex me-0 pe-0 w-25">
-                <input class="form-control me-2" type="search" placeholder="Пребарај" aria-label="Search">
+            <form action="/products/all" method="GET" class="d-flex me-0 pe-0 w-25">
+                <input class="form-control me-2" type="search" placeholder="Пребарај" aria-label="Search" name="search_query">
                 <button class="btn btn-outline-secondary" type="submit">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          class="bi bi-search" viewBox="0 0 16 16">
@@ -43,7 +45,7 @@
                     </svg>
                 </a>
                 {% else %}
-                                <a href="/dashboard" class="text-dark text-decoration-none">
+                                <a href="/user-dashboard" class="text-dark text-decoration-none">
                     <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor"
                          class="bi bi-person" viewBox="0 0 16 16">
                         <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>

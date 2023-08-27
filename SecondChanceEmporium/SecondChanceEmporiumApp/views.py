@@ -19,6 +19,9 @@ def index(request):
 def allproducts(request):
     all_products = Product.objects.all()
     banner = 'all'
+    search_query = request.GET.get('search_query')
+    if search_query:
+        all_products = Product.objects.filter(Q(title__icontains=search_query) | Q(description__icontains=search_query) | Q(seller__name__icontains=search_query) | Q(category__category__icontains=search_query))
     context = {"products":all_products,"banner":banner}
     return render(request,"products.html",context=context)
 
